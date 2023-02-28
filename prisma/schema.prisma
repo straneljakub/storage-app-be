@@ -37,6 +37,6 @@ model Notification {
 }
 
 abstract class EntityIdentification {
-  id   Int     
+  id   Int    
   type String
 }
