@@ -11,32 +11,27 @@ datasource db {
 }
 
 model Material {
-  id          Int      @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   title       String
   count       Int
-  description String?
+  description String
 }
 
 model Condition {
-  id         Int      @id @default(autoincrement())
-  value      Int
-  operator   String
-  entityIdId Int
-  entityIdType String
-  EntityId   EntityIdentification @relation(fields: [entityIdId, entityIdType], references: [id, type])
+  id                     Int                  @id @default(autoincrement())
+  value                  Int
+  operator               String
+  entityId               Int
+  entityIdType           String
 }
 
 model Notification {
-  id      Int    @id @default(autoincrement())
-  entityIdId Int
-  entityIdType String
-  value   Int
-  operator String
-  date    DateTime @default(now())
-  EntityId   EntityIdentification @relation(fields: [entityIdId, entityIdType], references: [id, type])
+  id                     Int                  @id @default(autoincrement())
+  value                  Int
+  operator               String
+  date                   String
+  entityId               Int
+  entityIdType           String
 }
 
-abstract class EntityIdentification {
-  id   Int    
-  type String
-}
+
