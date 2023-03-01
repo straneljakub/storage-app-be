@@ -12,8 +12,8 @@ import {
   Delete,
 } from '@nestjs/common';
 import { Material } from '@prisma/client';
+import { CountDto } from 'src/dto/count.dto';
 import { CreateMaterialDto } from 'src/dto/material.dto';
-import { ValidationPipe } from '../validation/validation.pipe';
 import { MaterialsService } from './materials.service';
 
 @Controller('materials')
@@ -26,45 +26,82 @@ export class MaterialsController {
   }
 
   @Post('/')
-  async add(
-    @Res() res,
-    @Body(new ValidationPipe()) material: CreateMaterialDto,
-  ) {
-    const newMaterial = this.materialsService.add(material);
+  async add(@Res() res, @Body() material: CreateMaterialDto) {
+    const newMaterial = await this.materialsService.add(material);
     if (newMaterial) {
       return res.status(HttpStatus.OK).json({
         message: 'Material added!',
-        material: await newMaterial,
+        material: newMaterial,
       });
     } else {
-      throw new NotFoundException('Material was not added!');
+      return res.status(HttpStatus.FORBIDDEN).json({
+        message: 'Material was not added!',
+      });
     }
   }
 
   @Put('/:id')
   async edit(
     @Res() res,
-    @Body(new ValidationPipe()) material: CreateMaterialDto,
+    @Body() material: CreateMaterialDto,
     @Param('id', ParseIntPipe) id: number,
   ) {
-    const edited = this.materialsService.edit(id, material);
+    const edited = await this.materialsService.edit(id, material);
     if (edited) {
       return res.status(HttpStatus.OK).json({
         message: 'Material edited!',
-        edited: await edited,
+        edited: edited,
       });
     } else {
       throw new NotFoundException('Material was not edited!');
     }
   }
 
+  @Put('/add/:id')
+  async addCount(
+    @Res() res,
+    @Body() countDto: CountDto,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    const edited = await this.materialsService.addCount(id, countDto.count);
+    if (edited) {
+      return res.status(HttpStatus.OK).json({
+        message: 'Count added!',
+        edited: edited,
+      });
+    } else {
+      return res.status(HttpStatus.FORBIDDEN).json({
+        message: 'Count was not added!',
+      });
+    }
+  }
+
+  @Put('/subtract/:id')
+  async subtractCount(
+    @Res() res,
+    @Body() countDto: CountDto,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    const edited = await this.materialsService.addCount(id, -countDto.count);
+    if (edited) {
+      return res.status(HttpStatus.OK).json({
+        message: 'Count subtracted!',
+        edited: edited,
+      });
+    } else {
+      return res.status(HttpStatus.FORBIDDEN).json({
+        message: 'Count not subtracted!',
+      });
+    }
+  }
+
   @Delete('/:id')
   async delete(@Res() res, @Param('id', ParseIntPipe) id: number) {
-    const deleted = this.materialsService.delete(id);
+    const deleted = await this.materialsService.delete(id);
     if (deleted) {
       return res.status(HttpStatus.OK).json({
         message: 'Material deleted!',
-        deleted: await deleted,
+        deleted: deleted,
       });
     } else {
       throw new NotFoundException('Material was not deleted!');
