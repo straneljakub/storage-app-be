@@ -3,14 +3,15 @@ import {
   Controller,
   Delete,
   Get,
-  HttpStatus,
   Param,
   ParseIntPipe,
   Post,
-  Res,
+  NotFoundException,
 } from '@nestjs/common';
-import { Notification } from '@prisma/client';
-import { NotificationDto } from 'src/notifications/dto/notification.dto';
+import {
+  CreateNotificationDto,
+  NotificationDto,
+} from 'src/notifications/dto/notification.dto';
 import { NotificationsService } from './notifications.service';
 
 @Controller('notifications')
@@ -18,37 +19,33 @@ export class NotificationsController {
   constructor(private readonly notificationsService: NotificationsService) {}
 
   @Get()
-  async getAll(): Promise<Notification[]> {
+  async getAll(): Promise<NotificationDto[]> {
     return this.notificationsService.getAll();
   }
 
   @Post('/')
-  async add(@Res() res, @Body() notification: NotificationDto) {
+  async add(@Body() notification: CreateNotificationDto) {
     const newNotification = await this.notificationsService.add(notification);
     if (newNotification) {
-      return res.status(HttpStatus.OK).json({
+      return JSON.stringify({
         message: 'Notification added!',
         notification: notification,
       });
     } else {
-      return res.status(HttpStatus.FORBIDDEN).json({
-        message: 'Notification not added!',
-      });
+      throw new NotFoundException('Notification was not added!');
     }
   }
 
   @Delete(':id')
-  async delete(@Res() res, @Param('id', ParseIntPipe) id: number) {
+  async delete(@Param('id', ParseIntPipe) id: number) {
     const deleted = await this.notificationsService.delete(id);
     if (deleted) {
-      return res.status(HttpStatus.OK).json({
+      return JSON.stringify({
         message: 'Notification deleted!',
         deleted: deleted,
       });
     } else {
-      return res.status(HttpStatus.NOT_FOUND).json({
-        message: 'Notification not deleted!',
-      });
+      throw new NotFoundException('Notification was not deleted!');
     }
   }
 }

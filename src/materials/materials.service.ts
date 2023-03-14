@@ -1,43 +1,43 @@
 import { Injectable } from '@nestjs/common';
-import { Material } from '@prisma/client';
-import { CreateMaterialDto } from 'src/materials/dto/material.dto';
+import { CreateMaterialDto, MaterialDto } from 'src/materials/dto/material.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class MaterialsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getAll(): Promise<Material[]> {
-    return this.prisma.material.findMany();
+  async getAll(): Promise<MaterialDto[]> {
+    const materials = await this.prisma.material.findMany();
+    return materials.map((material) => new MaterialDto(material));
   }
 
-  async add(material: CreateMaterialDto): Promise<Material> {
+  async add(material: CreateMaterialDto): Promise<MaterialDto> {
     const newMaterial = await this.prisma.material.create({
       data: material,
     });
-    return newMaterial;
+    return new MaterialDto(newMaterial);
   }
 
-  async edit(id: number, material: CreateMaterialDto): Promise<Material> {
-    const edited = this.prisma.material.update({
+  async edit(id: number, material: CreateMaterialDto): Promise<MaterialDto> {
+    const edited = await this.prisma.material.update({
       where: {
         id: id,
       },
       data: material,
     });
-    return edited;
+    return new MaterialDto(edited);
   }
 
-  async delete(id: number): Promise<Material> {
-    const deleted = this.prisma.material.delete({
+  async delete(id: number): Promise<MaterialDto> {
+    const deleted = await this.prisma.material.delete({
       where: {
         id: id,
       },
     });
-    return deleted;
+    return new MaterialDto(deleted);
   }
 
-  async addCount(id: number, count: number) {
+  async addCount(id: number, count: number): Promise<MaterialDto> {
     const material = await this.prisma.material.findUnique({
       where: {
         id: id,
@@ -49,7 +49,7 @@ export class MaterialsService {
       return null;
     }
 
-    const updatedMaterial = this.prisma.material.update({
+    const updatedMaterial = await this.prisma.material.update({
       where: {
         id: id,
       },
@@ -58,6 +58,6 @@ export class MaterialsService {
       },
     });
 
-    return updatedMaterial;
+    return new MaterialDto(updatedMaterial);
   }
 }

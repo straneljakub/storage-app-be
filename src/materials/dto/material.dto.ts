@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+import { Material } from '@prisma/client';
 import { IsNumber, IsString, Min } from 'class-validator';
 
 export class CreateMaterialDto {
@@ -11,4 +12,18 @@ export class CreateMaterialDto {
 
   @IsString()
   description: string;
+}
+
+export class MaterialDto {
+  id: number;
+  title: string;
+  count: number;
+  description: string;
+  
+  constructor(material: Material) {
+    this.id = material.id;
+    this.title = material.title;
+    this.count = material.count;
+    this.description = material.description;
+  }
 }
