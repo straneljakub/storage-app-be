@@ -12,8 +12,8 @@ import {
   Delete,
 } from '@nestjs/common';
 import { Material } from '@prisma/client';
-import { CountDto } from 'src/dto/count.dto';
-import { CreateMaterialDto } from 'src/dto/material.dto';
+import { CountDto } from 'src/materials/dto/count.dto';
+import { CreateMaterialDto } from 'src/materials/dto/material.dto';
 import { MaterialsService } from './materials.service';
 
 @Controller('materials')

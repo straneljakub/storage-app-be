@@ -10,7 +10,7 @@ import {
   Res,
 } from '@nestjs/common';
 import { Notification } from '@prisma/client';
-import { NotificationDto } from 'src/dto/notification.dto';
+import { NotificationDto } from 'src/notifications/dto/notification.dto';
 import { NotificationsService } from './notifications.service';
 
 @Controller('notifications')

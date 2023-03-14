@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { Condition, PrismaClient } from '@prisma/client';
-import { ConditionDto } from 'src/dto/condition.dto';
+import { Condition } from '@prisma/client';
+import { ConditionDto } from 'src/conditions/dto/condition.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class ConditionsService {
-  constructor(private readonly prisma: PrismaClient) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async getAll(): Promise<Condition[]> {
     return this.prisma.condition.findMany();

@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { Material, PrismaClient } from '@prisma/client';
-import { CountDto } from 'src/dto/count.dto';
-import { CreateMaterialDto } from 'src/dto/material.dto';
+import { Material } from '@prisma/client';
+import { CreateMaterialDto } from 'src/materials/dto/material.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class MaterialsService {
-  constructor(private readonly prisma: PrismaClient) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async getAll(): Promise<Material[]> {
     return this.prisma.material.findMany();

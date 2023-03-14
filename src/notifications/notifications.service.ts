@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { Notification, PrismaClient } from '@prisma/client';
-import { NotificationDto } from 'src/dto/notification.dto';
+import { Notification } from '@prisma/client';
+import { NotificationDto } from 'src/notifications/dto/notification.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class NotificationsService {
-  constructor(private readonly prisma: PrismaClient) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async getAll(): Promise<Notification[]> {
     return this.prisma.notification.findMany();

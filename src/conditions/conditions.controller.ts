@@ -10,7 +10,7 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { Condition } from '@prisma/client';
-import { ConditionDto } from 'src/dto/condition.dto';
+import { ConditionDto } from 'src/conditions/dto/condition.dto';
 import { ConditionsService } from './conditions.service';
 
 @Controller('conditions')
