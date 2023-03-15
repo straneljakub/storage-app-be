@@ -1,20 +1,5 @@
 /* eslint-disable prettier/prettier */
 import { Condition } from "@prisma/client";
-import  { IsNumber, IsString } from "class-validator";
-
-export class CreateConditionDto {
-    @IsNumber()
-    value: number;
-
-    @IsString()
-    operator: string;
-
-    @IsNumber()
-    entityId: number;
-
-    @IsString()
-    entityIdType: string;
-}
 
 export class ConditionDto {
     id: number;

@@ -8,11 +8,10 @@ import {
   ParseIntPipe,
   NotFoundException,
 } from '@nestjs/common';
-import {
-  CreateConditionDto,
-  ConditionDto,
-} from 'src/conditions/dto/condition.dto';
-import { ConditionsService } from './conditions.service';
+
+import { ConditionDto } from './dto/condition.dto';
+import { CreateConditionDto } from './dto/create-condition.dto';
+import { ConditionsService } from 'src/features/conditions/conditions.service';
 
 @Controller('conditions')
 export class ConditionsController {

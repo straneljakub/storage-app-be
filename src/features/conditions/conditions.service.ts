@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import {
-  CreateConditionDto,
-  ConditionDto,
-} from 'src/conditions/dto/condition.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateConditionDto } from '../../open-api/conditions-api/dto/create-condition.dto';
+import { ConditionDto } from '../../open-api/conditions-api/dto/condition.dto';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class ConditionsService {

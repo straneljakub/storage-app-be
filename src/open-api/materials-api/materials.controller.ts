@@ -9,9 +9,11 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
-import { CountDto } from 'src/materials/dto/count.dto';
-import { CreateMaterialDto, MaterialDto } from 'src/materials/dto/material.dto';
-import { MaterialsService } from './materials.service';
+
+import { CreateMaterialDto } from './dto/create-material.dto';
+import { MaterialDto } from './dto/material.dto';
+import { MaterialsService } from '../../features/materials/materials.service';
+import { CountDto } from './dto/count.dto';
 
 @Controller('materials')
 export class MaterialsController {

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMaterialDto, MaterialDto } from 'src/materials/dto/material.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateMaterialDto } from '../../open-api/materials-api/dto/create-material.dto';
+import { MaterialDto } from '../../open-api/materials-api/dto/material.dto';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class MaterialsService {

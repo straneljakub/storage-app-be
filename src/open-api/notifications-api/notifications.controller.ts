@@ -8,11 +8,9 @@ import {
   Post,
   NotFoundException,
 } from '@nestjs/common';
-import {
-  CreateNotificationDto,
-  NotificationDto,
-} from 'src/notifications/dto/notification.dto';
-import { NotificationsService } from './notifications.service';
+import { CreateNotificationDto } from './dto/create-notification.dto';
+import { NotificationDto } from './dto/notification.dto';
+import { NotificationsService } from 'src/features/notifications/notifications.service';
 
 @Controller('notifications')
 export class NotificationsController {

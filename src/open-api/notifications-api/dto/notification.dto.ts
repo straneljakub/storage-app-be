@@ -1,23 +1,5 @@
 /* eslint-disable prettier/prettier */
 import { Notification } from "@prisma/client";
-import  { IsNumber, IsString } from "class-validator";
-
-export class CreateNotificationDto {
-    @IsNumber()
-    value: number;
-
-    @IsString()
-    operator: string;
-
-    @IsNumber()
-    entityId: number;
-
-    @IsString()
-    entityIdType: string;
-
-    @IsString()
-    date: string;
-}
 
 export class NotificationDto {
     id: number;

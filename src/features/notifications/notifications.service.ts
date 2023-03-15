@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import {
-  CreateNotificationDto,
-  NotificationDto,
-} from 'src/notifications/dto/notification.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateNotificationDto } from '../../open-api/notifications-api/dto/create-notification.dto';
+import { NotificationDto } from '../../open-api/notifications-api/dto/notification.dto';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class NotificationsService {
